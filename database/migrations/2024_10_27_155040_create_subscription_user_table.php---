@@ -15,6 +15,12 @@ return new class extends Migration {
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('subscription_id');
 
+            $table->enum('status', ['active', 'cancelled', 'expired'])->default('active');
+            // tracking the user historic subscriptions
+            $table->dateTime('starts_at')->nullable();
+            $table->dateTime('ends_at')->nullable();
+            $table->string('recurring_id')->nullable(); // for payment provider metadata (e.g., Stripe/Cashier)
+
             $table->timestamps();
             $table->softDeletes();
 

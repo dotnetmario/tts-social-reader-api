@@ -14,8 +14,11 @@ return new class extends Migration {
             $table->id();
 
             $table->string('name');
+            $table->text('description');
             $table->float('price');
-            $table->enum('billing_type', ['monthly', 'tokens'])->deafult('monthly');
+            $table->unsignedBigInteger('characters'); // amount of characters per subscription
+            $table->boolean('active')->default(true);
+            $table->string('paypal_plan_id')->nullable(); // for paypal subscriptions
 
             $table->timestamps();
             $table->softDeletes();

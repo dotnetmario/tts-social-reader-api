@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\BaseModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Subscription extends Model
@@ -17,16 +18,19 @@ class Subscription extends Model
      */
     protected $fillable = [
         'name',
+        'description',
         'price',
-        'billing_type',
+        'characters',
+        'active',
+        'paypal_plan_id'
     ];
 
     /**
      * RELATIONS
      */
 
-    public function user(): BelongsToMany
+    public function credits(): HasMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->hasMany(Credit::class);
     }
 }

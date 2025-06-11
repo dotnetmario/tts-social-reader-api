@@ -10,15 +10,20 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('apitokens', function (Blueprint $table) {
+        Schema::create('credits', function (Blueprint $table) {
             $table->id();
-            // $table->string('api_key');
-            $table->string('model');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('subscription_id');
+
+            $table->unsignedBigInteger('characters');
+            $table->unsignedBigInteger('characters_used')->default(0);
             $table->dateTime('expires_at')->nullable();
-            $table->unsignedBigInteger('tokens');
 
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('subscription_id')->references('id')->on('subscriptions');
         });
     }
 
@@ -27,6 +32,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('apitokens');
+        Schema::dropIfExists('credits');
     }
 };
