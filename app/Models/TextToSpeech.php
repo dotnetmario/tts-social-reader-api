@@ -21,7 +21,13 @@ class TextToSpeech extends Model
     protected $fillable = [
         'text',
         'path_to_file',
-        'successful',
+        'status',
+        'characters_used',
+        'credit_usages',
+        'voice_name',
+        'language_code',
+        'voice_gender',
+        'error_message'
     ];
 
     /**

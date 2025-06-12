@@ -15,11 +15,13 @@ return new class extends Migration {
             $table->unsignedBigInteger('user_id');
 
             $table->text('text');
-            $table->string('path_to_file');
-            $table->boolean('successful')->default(true);
-
-
+            $table->string('path_to_file')->nullable();
+            // $table->boolean('successful')->default(true);
+            $table->enum('status', ['pending', 'failed', 'completed'])->default('pending');
             $table->unsignedInteger('characters_used');
+            $table->json('credit_usages')->nullable();
+
+
             $table->string('voice_name')->nullable();
             $table->string('language_code')->nullable();
             // $table->enum('voice_type', ['standard', 'neural'])->nullable();

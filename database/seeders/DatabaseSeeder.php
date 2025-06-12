@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Apitoken;
+use App\Models\Credit;
 use App\Models\MessageModel;
 use App\Models\Subscription;
 use App\Models\User;
@@ -47,50 +48,20 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // $credits = [];
-        // foreach ($users as $user) {
-        //     for ($i = 0; $i < 10; $i++) {
-        //         $credits[] = $user->credits()->create([
-        //             'credits' => rand(100000, 1000000),
-        //             'expires_at' => rand(0, 1) > 0 ?
-        //                 \Carbon\Carbon::now()->subDays(rand(10, 100))
-        //                 : \Carbon\Carbon::now()->addDays(rand(10, 100))
-        //         ]);
-        //     }
-        // }
+        $credits = [];
+        foreach ($users as $user) {
+            $amount = rand(5, 15); // 5~15 credits will be created
+            for ($i = 0; $i < $amount; $i++) {
+                $all_chars = rand(10, 100);
 
-        // $chats = [];
-        // $message_models = [];
-        // foreach ($users as $user) {
-        //     for ($i = 0; $i < 9; $i++) {
-        //         $chats[] = $user->chats()->create([
-        //             'topic' => fake()->sentence()
-        //         ]);
-        //     }
-
-        //     for ($i = 0; $i < 3; $i++) {
-        //         $vars = json_encode([
-        //             'var1' => fake()->sentence(),
-        //             'var2' => fake()->sentence(),
-        //             'var3' => fake()->sentence(),
-        //         ]);
-        //         $model = fake()->sentence() . " {var1} " . fake()->sentence() . " {var2} " . fake()->sentence() . " {var3} " . fake()->sentence();
-
-        //         $message_models[] = $user->messageModels()->create([
-        //             'variables' => $vars,
-        //             'model' => $model
-        //         ]);
-        //     }
-        // }
-
-        // $messages = [];
-        // foreach($chats as $chat){
-        //     for($i = 0; $i < rand(5, 20); $i++)
-        //     $messages[] = $chat->messages()->create([
-        //         'sender' => ($i % 2 === 0) ? 'user' : 'assistant',
-        //         'message' => fake()->paragraphs(rand(1, 5), true),
-        //         'order' => $i
-        //     ]);
-        // }
+                $credits[] = Credit::create([
+                    'user_id' => $user->id,
+                    'subscription_id' => 1,
+                    'characters' => $all_chars,
+                    'characters_used' => $all_chars - rand(10, $all_chars),
+                    'expires_at' => rand(0, 1) === 0 ? now()->subDays(rand(1, 10)) : now()->addDays(1, 10)
+                ]);
+            }
+        }
     }
 }

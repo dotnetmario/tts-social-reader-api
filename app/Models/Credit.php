@@ -18,9 +18,11 @@ class Credit extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'credits',
-        'used_credits',
-        'expires_at',
+        'user_id',
+        'subscription_id',
+        'characters',
+        'characters_used',
+        'expires_at'
     ];
 
 
