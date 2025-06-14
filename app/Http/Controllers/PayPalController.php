@@ -88,6 +88,7 @@ class PayPalController extends BaseController
         // $this->validateRequest($request, [
         //     'subscription_id' => 'required|numeric'
         // ]);
+        // access from repositories
 
         $subscription = Subscription::findOrFail($request->subscription_id);
 

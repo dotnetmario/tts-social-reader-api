@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PayPalController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -12,6 +13,26 @@ Route::get('/', function () {
 Route::get('/dashboard', function(){
     return view('dashboard');
 })->name('dashboard');
+
+/**
+ * Authentication
+ */
+
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'performLogin'])->name('login');
+
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/register', [AuthController::class, 'performRegister']);
+
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/login');
+})->name('logout');
+
+/**
+ * /Authentication
+ */
+
 
 
 Route::post('/paypal/create-order', [PayPalController::class, 'createOrder'])->name('paypal.create');
